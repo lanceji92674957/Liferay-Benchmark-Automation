@@ -19,6 +19,14 @@
 		</sequential>
 	</macrodef>
 
+	<macrodef name="get-user-branch">
+		<sequential>
+			<input message="username: " addproperty="git-user" />
+
+			<input message="branch: " addproperty="test-branch" />
+		</sequential>
+	</macrodef>
+
 	<macrodef name="pull-latest-upstream-master">
 		<sequential>
 			<exec executable="git" dir="${portal.dir}">
@@ -49,6 +57,25 @@
 		<pull-latest-upstream-master />
 	</target>
 
+	<target name="cherry-picker">
+		<get-user-branch />
+
+		<exec executable="git" dir="${portal.dir}">
+			<arg value="fetch" />
+			<arg value="https://github.com/${git-user}/liferay-portal.git" />
+			<arg value="${test-branch}" />
+		</exec>
+
+		<input message="Start-git-id: " addproperty="git-id-start" />
+
+		<input message="End-git-id: " addproperty="git-id-end" />
+
+		<exec executable="git" dir="${portal.dir}">
+			<arg value="cherry-pick" />
+			<arg value="${git-id-start}^..${git-id-end}" />
+		</exec>
+	</target>
+
 	<target name="test-baseline">
 		<checkout-master />
 
@@ -60,9 +87,7 @@
 	<target name="test-pr">
 		<checkout-master />
 
-		<input message="username: " addproperty="git-user" />
-
-		<input message="branch: " addproperty="test-branch" />
+		<get-user-branch />
 
 		<echo>Checking out ${git-user}:${test-branch}</echo>
 
