@@ -34,4 +34,15 @@
 	<target name="checkout-latest-master">
 		<checkout-latest-master />
 	</target>
+
+	<target name="test-pr">
+		<input message="username: " addproperty="git-user" />
+		<input message="branch: " addproperty="test-branch" />
+		<echo>Checking out ${git-user}:${test-branch}</echo>
+		<exec executable="git" dir="${portal.dir}">
+			<arg value="checkout" />
+			<arg value="-b" />
+			<arg value="${git-user}-${test-branch}" />
+		</exec>
+	</target>
 </project>
