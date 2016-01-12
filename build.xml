@@ -63,5 +63,12 @@
 			<arg value="-b" />
 			<arg value="${git-user}-${test-branch}" />
 		</exec>
+
+		<exec executable="git" dir="${portal.dir}">
+			<arg value="pull" />
+			<arg value="--rebase" />
+			<arg value="https://github.com/${git-user}/liferay-portal.git" />
+			<arg value="${test-branch}" />
+		</exec>
 	</target>
 </project>
