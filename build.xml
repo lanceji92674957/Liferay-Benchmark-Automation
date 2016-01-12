@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Liferay-Source-Netbeans-Project" default="build" basedir="." >
+	<property file="build-ext.properties" />
+	<property file="build.properties" />
+
+	<target name="build">
+	</target>
+
+	<macrodef name="checkout-latest-master">
+		<sequential>
+			<echo message="Checkout latest master" />
+
+			<exec executable="git" dir="${portal.dir}">
+				<arg value="checkout" />
+				<arg value="master" />
+			</exec>
+
+			<exec executable="git" dir="${portal.dir}">
+				<arg value="pull" />
+				<arg value="upstream" />
+				<arg value="master" />
+			</exec>
+		</sequential>
+	</macrodef>
+
+	<target name="checkout-latest-master">
+		<checkout-latest-master />
+	</target>
+</project>
