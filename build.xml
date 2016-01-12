@@ -3,6 +3,8 @@
 	<property file="build-ext.properties" />
 	<property file="build.properties" />
 
+	<taskdef classpath="lib/ant-contrib.jar" resource="net/sf/antcontrib/antlib.xml" />
+
 	<target name="build">
 	</target>
 
