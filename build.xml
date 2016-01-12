@@ -23,6 +23,14 @@
 		</sequential>
 	</macrodef>
 
+	<macrodef name="test-with-build-portal">
+		<sequential>
+			<ant antfile="${benchmark.dir}/build.xml">
+				<target="stop" />
+			</ant>
+		</sequential>
+	</macrodef>
+
 	<target name="checkout-latest-master">
 		<checkout-latest-master />
 	</target>
