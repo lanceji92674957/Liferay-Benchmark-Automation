@@ -110,6 +110,24 @@
 		</exec>
 
 		<test-without-build-portal />
+
+		<copy file="${benchmark.dir}/properties/benchmark-ext-blog.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
+
+		<exec executable="ant" dir="${benchmark.dir}">
+			<arg value="all-database" />
+			<arg value="-Dskip.build.portal=true" />
+		</exec>
+
+		<test-without-build-portal />
+
+		<copy file="${benchmark.dir}/properties/benchmark-ext-content.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
+
+		<exec executable="ant" dir="${benchmark.dir}">
+			<arg value="all-database" />
+			<arg value="-Dskip.build.portal=true" />
+		</exec>
+
+		<test-without-build-portal />
 	</target>
 
 	<target name="test-baseline">
