@@ -139,5 +139,7 @@
 			<arg value="https://github.com/${git-user}/liferay-portal.git" />
 			<arg value="${test-branch}" />
 		</exec>
+
+		<test-with-build-portal />
 	</target>
 </project>
