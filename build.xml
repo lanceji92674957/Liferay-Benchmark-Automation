@@ -79,7 +79,7 @@
 	<target name="run-nightly" depends="checkout-latest-master">
 		<move file="${benchmark.dir}/benchmark-ext.properties" tofile="${benchmark.dir}/benchmark-ext.properties.bak" />
 
-		<move file="${benchmark.dir}/properties/benchmark-ext-login.properties" tofile="${benchmark.dir}/benchmark-ext.properties" />
+		<copy file="${benchmark.dir}/properties/benchmark-ext-login.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
 
 		<exec executable="ant" dir="${benchmark.dir}">
 			<arg value="all-database" />
@@ -96,7 +96,7 @@
 			<arg value="-Dskip.build.portal=true" />
 		</exec>
 
-		<move file="${benchmark.dir}/properties/benchmark-ext-mb.properties" tofile="${benchmark.dir}/benchmark-ext.properties" />
+		<copy file="${benchmark.dir}/properties/benchmark-ext-mb.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
 
 		<exec executable="ant" dir="${benchmark.dir}">
 			<arg value="all-database" />
