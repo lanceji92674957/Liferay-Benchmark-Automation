@@ -51,6 +51,21 @@
 		</sequential>
 	</macrodef>
 
+	<macrodef name="test-without-build-portal">
+		<sequential>
+			<exec executable="ant" dir="${benchmark.dir}">
+				<arg value="stop" />
+				<arg value="reload-warmup-database" />
+				<arg value="all-portal" />
+				<arg value="start-visualvm" />
+				<arg value="all-grinder" />
+				<arg value="all-sample" />
+				<arg value="stop" />
+				<arg value="-Dskip.build.portal=true" />
+			</exec>
+		</sequential>
+	</macrodef>
+
 	<target name="checkout-latest-master">
 		<checkout-master />
 
