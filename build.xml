@@ -121,9 +121,9 @@
 	</target>
 
 	<target name="test-pr">
-		<checkout-master />
-
 		<get-user-branch />
+
+		<checkout-master />
 
 		<echo>Checking out ${git-user}:${test-branch}</echo>
 
