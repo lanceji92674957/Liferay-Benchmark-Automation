@@ -83,6 +83,9 @@
 
 		<exec executable="ant" dir="${benchmark.dir}">
 			<arg value="all-database" />
+		</exec>
+
+		<exec executable="ant" dir="${benchmark.dir}">
 			<arg value="stop" />
 			<arg value="reload-warmup-database" />
 			<arg value="all-portal" />
@@ -90,12 +93,17 @@
 			<arg value="all-grinder" />
 			<arg value="all-sample" />
 			<arg value="stop" />
+			<arg value="-Dskip.build.portal=true" />
 		</exec>
 
 		<move file="${benchmark.dir}/properties/benchmark-ext-mb.properties" tofile="${benchmark.dir}/benchmark-ext.properties" />
 
 		<exec executable="ant" dir="${benchmark.dir}">
 			<arg value="all-database" />
+			<arg value="-Dskip.build.portal=true" />
+		</exec>
+
+		<exec executable="ant" dir="${benchmark.dir}">
 			<arg value="stop" />
 			<arg value="reload-warmup-database" />
 			<arg value="all-portal" />
@@ -103,6 +111,7 @@
 			<arg value="all-grinder" />
 			<arg value="all-sample" />
 			<arg value="stop" />
+			<arg value="-Dskip.build.portal=true" />
 		</exec>
 	</target>
 
