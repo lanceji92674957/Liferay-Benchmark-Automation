@@ -76,6 +76,36 @@
 		</exec>
 	</target>
 
+	<target name="run-nightly" depends="checkout-latest-master">
+		<move file="${benchmark.dir}/benchmark-ext.properties" tofile="${benchmark.dir}/benchmark-ext.properties.bak" />
+
+		<move file="${benchmark.dir}/properties/benchmark-ext-login.properties" tofile="${benchmark.dir}/benchmark-ext.properties" />
+
+		<exec executable="ant" dir="${benchmark.dir}">
+			<arg value="all-database" />
+			<arg value="stop" />
+			<arg value="reload-warmup-database" />
+			<arg value="all-portal" />
+			<arg value="start-visualvm" />
+			<arg value="all-grinder" />
+			<arg value="all-sample" />
+			<arg value="stop" />
+		</exec>
+
+		<move file="${benchmark.dir}/properties/benchmark-ext-mb.properties" tofile="${benchmark.dir}/benchmark-ext.properties" />
+
+		<exec executable="ant" dir="${benchmark.dir}">
+			<arg value="all-database" />
+			<arg value="stop" />
+			<arg value="reload-warmup-database" />
+			<arg value="all-portal" />
+			<arg value="start-visualvm" />
+			<arg value="all-grinder" />
+			<arg value="all-sample" />
+			<arg value="stop" />
+		</exec>
+	</target>
+
 	<target name="test-baseline">
 		<checkout-master />
 
