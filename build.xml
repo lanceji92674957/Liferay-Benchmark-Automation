@@ -175,18 +175,18 @@
 	<target name="test-wiki">
 		<copy file="${benchmark.dir}/properties/benchmark-ext-wiki.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
 
-		<copy file="${benchmark.dir}/portal/presets/common/webapps/ROOT/WEB-INF/classes/portal-ext-wiki.properties" tofile="${benchmark.dir}/portal/presets/common/webapps/ROOT/WEB-INF/classes/portal-ext.properties" overwrite="true"/>
+		<copy file="propertiesFiles/portal-ext-wiki.properties" tofile="${benchmark.dir}/portal/presets/common/webapps/ROOT/WEB-INF/classes/portal-ext.properties" overwrite="true"/>
 
-		<copy file="${benchmark.dir}/portal/presets/common/webapps/ROOT/WEB-INF/web-wiki.xml" tofile="${benchmark.dir}/portal/presets/common/webapps/ROOT/WEB-INF/web.xml" overwrite="true"/>
+		<copy file="propertiesFiles/web-wiki.xml" tofile="${benchmark.dir}/portal/presets/common/webapps/ROOT/WEB-INF/web.xml" overwrite="true"/>
 
 		<exec executable="ant" dir="${benchmark.dir}">
 			<arg value="all-database" />
 			<arg value="-Dskip.build.portal=true" />
 		</exec>
 
-		<copy file="${benchmark.dir}/portal/presets/common/webapps/ROOT/WEB-INF/classes/portal-ext-default.properties" tofile="${benchmark.dir}/portal/presets/common/webapps/ROOT/WEB-INF/classes/portal-ext.properties" overwrite="true"/>
+		<copy file="propertiesFiles/portal-ext-default.properties" tofile="${benchmark.dir}/portal/presets/common/webapps/ROOT/WEB-INF/classes/portal-ext.properties" overwrite="true"/>
 
-		<copy file="${benchmark.dir}/portal/presets/common/webapps/ROOT/WEB-INF/web-default.xml" tofile="${benchmark.dir}/portal/presets/common/webapps/ROOT/WEB-INF/web.xml" overwrite="true"/>
+		<copy file="propertiesFiles/web-default.xml" tofile="${benchmark.dir}/portal/presets/common/webapps/ROOT/WEB-INF/web.xml" overwrite="true"/>
 
 		<test-without-build-portal />
 
