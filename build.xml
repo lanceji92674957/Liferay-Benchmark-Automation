@@ -66,6 +66,14 @@
 		</sequential>
 	</macrodef>
 
+	<macrodef name="warmup-database">
+		<sequential>
+			<exec executable="ant" dir="${benchmark.dir}">
+				<arg value="all-database" />
+			</exec>
+		</sequential>
+	</macrodef>
+
 	<target name="checkout-latest-master">
 		<checkout-master />
 
@@ -147,6 +155,16 @@
 		<pull-latest-upstream-master />
 
 		<test-with-build-portal />
+	</target>
+
+	<target name="test-baseline-with-warmup">
+		<checkout-master />
+
+		<pull-latest-upstream-master />
+
+		<warmup-database />
+
+		<test-without-build-portal />
 	</target>
 
 	<target name="test-pr">
