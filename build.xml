@@ -208,4 +208,16 @@
 
 		<copy file="${benchmark.dir}/properties/benchmark-ext-login.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
 	</target>
+
+	<target name="test-with-warmup">
+		<input message="test case: " addproperty="test-case" />
+
+		<copy file="${benchmark.dir}/properties/benchmark-ext-${test-case}.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
+
+		<exec executable="ant" dir="${benchmark.dir}">
+			<arg value="all-database" />
+		</exec>
+
+		<test-without-build-portal />
+	</target>
 </project>
