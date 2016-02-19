@@ -212,12 +212,20 @@
 	<target name="test-with-warmup">
 		<input message="test case: " addproperty="test-case" />
 
-		<copy file="${benchmark.dir}/properties/benchmark-ext-${test-case}.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
+		<if>
+			<available file="${benchmark.dir}/properties/benchmark-ext-${test-case}.properties" />
+			<then>
+				<copy file="${benchmark.dir}/properties/benchmark-ext-${test-case}.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
 
-		<exec executable="ant" dir="${benchmark.dir}">
-			<arg value="all-database" />
-		</exec>
+				<exec executable="ant" dir="${benchmark.dir}">
+					<arg value="all-database" />
+				</exec>
 
-		<test-without-build-portal />
+				<test-without-build-portal />
+			</then>
+			<else>
+				<echo>${test-case} is not a valid script name</echo>
+			</else>
+		</if>
 	</target>
 </project>
