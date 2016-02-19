@@ -114,7 +114,6 @@
 
 		<exec executable="ant" dir="${benchmark.dir}">
 			<arg value="all-database" />
-			<arg value="-Dskip.build.portal=true" />
 		</exec>
 
 		<test-without-build-portal />
@@ -123,7 +122,6 @@
 
 		<exec executable="ant" dir="${benchmark.dir}">
 			<arg value="all-database" />
-			<arg value="-Dskip.build.portal=true" />
 		</exec>
 
 		<test-without-build-portal />
