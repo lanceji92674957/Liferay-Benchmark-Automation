@@ -222,6 +222,8 @@
 				</exec>
 
 				<test-without-build-portal />
+
+				<copy file="${benchmark.dir}/properties/benchmark-ext-login.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
 			</then>
 			<else>
 				<echo>${test-case} is not a valid script name</echo>
