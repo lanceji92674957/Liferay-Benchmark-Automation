@@ -31,6 +31,7 @@
 		<sequential>
 			<exec executable="git" dir="${portal.dir}">
 				<arg value="pull" />
+				<arg value="--rebase" />
 				<arg value="upstream" />
 				<arg value="master" />
 			</exec>
