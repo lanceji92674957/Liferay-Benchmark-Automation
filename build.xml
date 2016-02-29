@@ -218,9 +218,7 @@
 			<then>
 				<copy file="${benchmark.dir}/properties/benchmark-ext-${test-case}.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
 
-				<exec executable="ant" dir="${benchmark.dir}">
-					<arg value="all-database" />
-				</exec>
+				<warmup-database />
 
 				<test-without-build-portal />
 
