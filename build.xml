@@ -157,6 +157,30 @@
 		<copy file="${benchmark.dir}/properties/benchmark-ext-login.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
 	</target>
 
+	<target name="run-asset-wiki-dl" depends="checkout-latest-master">
+		<move file="${benchmark.dir}/benchmark-ext.properties" tofile="${benchmark.dir}/benchmark-ext.properties.bak" />
+
+		<copy file="${benchmark.dir}/properties/benchmark-ext-asset.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
+
+		<exec executable="ant" dir="${benchmark.dir}">
+			<arg value="all-database" />
+		</exec>
+
+		<test-without-build-portal />
+
+		<test-wiki />
+
+		<copy file="${benchmark.dir}/properties/benchmark-ext-dl.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
+
+		<exec executable="ant" dir="${benchmark.dir}">
+			<arg value="all-database" />
+		</exec>
+
+		<test-without-build-portal />
+
+		<copy file="${benchmark.dir}/properties/benchmark-ext-login.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
+	</target>
+
 	<target name="test-baseline">
 		<checkout-master />
 
