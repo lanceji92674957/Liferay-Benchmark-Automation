@@ -225,7 +225,7 @@
 		<test-with-build-portal />
 	</target>
 
-	<target name="test-wiki">
+	<target name="test-wiki" depends="update-wiki-properties">
 		<copy file="${benchmark.dir}/properties/benchmark-ext-wiki.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
 
 		<copy file="propertiesFiles/portal-ext-wiki.properties" tofile="${benchmark.dir}/portal/presets/common/webapps/ROOT/WEB-INF/classes/portal-ext.properties" overwrite="true"/>
@@ -284,5 +284,20 @@
 				<echo>${test-case} is not a valid script name</echo>
 			</else>
 		</if>
+	</target>
+
+	<target name="update-wiki-properties">
+		<copy file="${benchmark.dir}/portal/presets/common/webapps/ROOT/WEB-INF/classes/portal-ext.properties" tofile="propertiesFiles/portal-ext-default.properties" overwrite="true" />
+
+		<copy file="${benchmark.dir}/portal/presets/common/webapps/ROOT/WEB-INF/web.xml" tofile="propertiesFiles/web-default.xml" overwrite="true" />
+
+		<copy file="propertiesFiles/portal-ext-default.properties" tofile="propertiesFiles/portal-ext-wiki.properties" overwrite="true" />
+
+		<copy file="propertiesFiles/web-default.xml" tofile="propertiesFiles/web-wiki.xml" overwrite="true" />
+
+		<replace file="propertiesFiles/web-wiki.xml" token="&lt;session-timeout&gt;30&lt;/session-timeout&gt;" value="&lt;session-timeout&gt;1440&lt;/session-timeout&gt;" />
+
+		<concat destfile="propertiesFiles/portal-ext-wiki.properties" append="true">
+session.timeout=1440</concat>
 	</target>
 </project>
