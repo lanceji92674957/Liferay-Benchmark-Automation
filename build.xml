@@ -217,8 +217,10 @@
 		/>
 	</target>
 
-	<target name="test-pr">
+	<target name="test-pr-and-get-baseline">
 		<get-user-branch />
+
+		<input message="Number of commits: " addproperty="number-of-commits" />
 
 		<checkout-master />
 
@@ -235,6 +237,20 @@
 			<arg value="--rebase" />
 			<arg value="https://github.com/${git-user}/liferay-portal.git" />
 			<arg value="${test-branch}" />
+		</exec>
+
+		<test-with-build-portal />
+
+		<exec executable="git" dir="${portal.dir}">
+			<arg value="checkout" />
+			<arg value="-b" />
+			<arg value="${git-user}-${test-branch}-baseline" />
+		</exec>
+
+		<exec executable="git" dir="${portal.dir}">
+			<arg value="reset" />
+			<arg value="--hard" />
+			<arg value="HEAD~${number-of-commits}" />
 		</exec>
 
 		<test-with-build-portal />
