@@ -217,24 +217,6 @@
 		/>
 	</target>
 
-	<target name="test-baseline">
-		<checkout-master />
-
-		<pull-latest-upstream-master />
-
-		<test-with-build-portal />
-	</target>
-
-	<target name="test-baseline-with-warmup">
-		<checkout-master />
-
-		<pull-latest-upstream-master />
-
-		<warmup-database />
-
-		<test-without-build-portal />
-	</target>
-
 	<target name="test-pr">
 		<get-user-branch />
 
