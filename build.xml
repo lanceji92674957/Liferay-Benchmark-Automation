@@ -217,6 +217,14 @@
 		/>
 	</target>
 
+	<target name="test-current-branch">
+		<test-with-build-portal />
+	</target>
+
+	<target name="test-current-branch-without-building-portal">
+		<test-without-build-portal />
+	</target>
+
 	<target name="test-pr-and-get-baseline">
 		<get-user-branch />
 
