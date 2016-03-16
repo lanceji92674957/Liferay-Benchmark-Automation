@@ -126,17 +126,9 @@
 	</target>
 
 	<target name="run-nightly" depends="checkout-latest-master">
-		<move file="${benchmark.dir}/benchmark-ext.properties" tofile="${benchmark.dir}/benchmark-ext.properties.bak" />
-
-		<copy file="${benchmark.dir}/properties/benchmark-ext-login.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
-
-		<exec executable="ant" dir="${benchmark.dir}">
-			<arg value="all-database" />
-		</exec>
-
-		<test-without-build-portal />
-
-		<copy file="${benchmark.dir}/properties/benchmark-ext-mb.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
+		<load-benchmark-properties
+			environment="${environment.name}"
+		/>
 
 		<exec executable="ant" dir="${benchmark.dir}">
 			<arg value="all-database" />
@@ -144,7 +136,10 @@
 
 		<test-without-build-portal />
 
-		<copy file="${benchmark.dir}/properties/benchmark-ext-blog.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
+		<load-benchmark-properties
+			environment="${environment.name}"
+			script.name="mb"
+		/>
 
 		<exec executable="ant" dir="${benchmark.dir}">
 			<arg value="all-database" />
@@ -152,7 +147,10 @@
 
 		<test-without-build-portal />
 
-		<copy file="${benchmark.dir}/properties/benchmark-ext-content.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
+		<load-benchmark-properties
+			environment="${environment.name}"
+			script.name="blog"
+		/>
 
 		<exec executable="ant" dir="${benchmark.dir}">
 			<arg value="all-database" />
@@ -160,7 +158,10 @@
 
 		<test-without-build-portal />
 
-		<copy file="${benchmark.dir}/properties/benchmark-ext-asset.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
+		<load-benchmark-properties
+			environment="${environment.name}"
+			script.name="content"
+		/>
 
 		<exec executable="ant" dir="${benchmark.dir}">
 			<arg value="all-database" />
@@ -168,13 +169,16 @@
 
 		<test-without-build-portal />
 
-		<copy file="${benchmark.dir}/properties/benchmark-ext-login.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
+		<load-benchmark-properties
+			environment="${environment.name}"
+		/>
 	</target>
 
 	<target name="run-asset-wiki-dl" depends="checkout-latest-master">
-		<move file="${benchmark.dir}/benchmark-ext.properties" tofile="${benchmark.dir}/benchmark-ext.properties.bak" />
-
-		<copy file="${benchmark.dir}/properties/benchmark-ext-asset.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
+		<load-benchmark-properties
+			environment="${environment.name}"
+			script.name="asset"
+		/>
 
 		<exec executable="ant" dir="${benchmark.dir}">
 			<arg value="all-database" />
@@ -184,7 +188,10 @@
 
 		<test-wiki />
 
-		<copy file="${benchmark.dir}/properties/benchmark-ext-dl.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
+		<load-benchmark-properties
+			environment="${environment.name}"
+			script.name="dl"
+		/>
 
 		<exec executable="ant" dir="${benchmark.dir}">
 			<arg value="all-database" />
@@ -192,7 +199,8 @@
 
 		<test-without-build-portal />
 
-		<copy file="${benchmark.dir}/properties/benchmark-ext-login.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
+		<load-benchmark-properties
+			environment="${environment.name}" />
 	</target>
 
 	<target name="switch-to-default-script">
@@ -270,8 +278,6 @@
 		<copy file="propertiesFiles/web-default.xml" tofile="${benchmark.dir}/portal/presets/common/webapps/ROOT/WEB-INF/web.xml" overwrite="true"/>
 
 		<test-without-build-portal />
-
-		<copy file="${benchmark.dir}/properties/benchmark-ext-login.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
 	</target>
 
 	<target name="test-with-warmup" depends="switch-to-script">
