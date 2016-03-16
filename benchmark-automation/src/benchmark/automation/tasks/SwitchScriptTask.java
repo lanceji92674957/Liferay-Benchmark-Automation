@@ -23,15 +23,24 @@ import org.apache.tools.ant.Task;
 public class SwitchScriptTask extends Task {
     public void execute() {
 		try {
+			Map<String, String> scriptMap = initMap();
+
+			verifyInputs(scriptMap);
+
 			replaceEnv(_environment, _filePath);
 
-			appendScript(_filePath, _script);
+			appendScript(scriptMap, _filePath, _script);
 		}
 		catch (IOException ex) {
+			System.out.println("*****Script switch failed******* ");
+			System.out.println(ex.getMessage());
 		}
     }
 
-	public void appendScript(Path filePath, String script) throws IOException {
+	public void appendScript(
+			Map<String, String> scriptMap, Path filePath, String script)
+		throws IOException {
+
 		StringBuilder sb = new StringBuilder();
 
 		sb.append(
@@ -43,7 +52,6 @@ public class SwitchScriptTask extends Task {
 		sb.append(script);
 		sb.append('\n');
 		sb.append("grinder.script=script/");
-		Map<String, String> scriptMap = initMap();
 		sb.append(scriptMap.get(script));
 		sb.append(".py");
 		sb.append('\n');
@@ -88,6 +96,16 @@ public class SwitchScriptTask extends Task {
 	public void setScript(String script) {
         _script = script;
     }
+
+	public void verifyInputs(Map<String, String> scriptMap) throws IOException {
+		if (!scriptMap.containsKey(_script)) {
+			throw new IOException(_script + " is not a valid script!");
+		}
+
+		if (Files.notExists(_filePath)) {
+			throw new IOException(_filePath + " does not exist!");
+		}
+	}
 
 	private String _environment;
 	private Path _filePath;
