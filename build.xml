@@ -4,6 +4,7 @@
 	<property file="build.properties" />
 
 	<taskdef classpath="lib/ant-contrib.jar" resource="net/sf/antcontrib/antlib.xml" />
+	<taskdef name="switchscript" classname="benchmark.automation.tasks.SwitchScriptTask" classpath="benchmark-automation/dist/benchmark-automation.jar" />
 
 	<target name="build">
 	</target>
@@ -24,6 +25,16 @@
 			<input message="username: " addproperty="git-user" />
 
 			<input message="branch: " addproperty="test-branch" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="load-benchmark-properties">
+		<attribute name="environment" default="qa1" />
+		<attribute name="script.name" default="login" />
+		<sequential>
+			<copy file="propertiesFiles/benchmark-ext.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
+
+			<switchscript env="@{environment}" filePath="${benchmark.dir}/benchmark-ext.properties" script="@{script.name}" />
 		</sequential>
 	</macrodef>
 
@@ -182,6 +193,20 @@
 		<test-without-build-portal />
 
 		<copy file="${benchmark.dir}/properties/benchmark-ext-login.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
+	</target>
+
+	<target name="switch-to-default-script">
+		<load-benchmark-properties
+			environment="${environment.name}" />
+	</target>
+
+	<target name="switch-to-script">
+		<input message="test case: " addproperty="test-case" />
+
+		<load-benchmark-properties
+			environment="${environment.name}"
+			script.name="${test-case}"
+		/>
 	</target>
 
 	<target name="test-baseline">
