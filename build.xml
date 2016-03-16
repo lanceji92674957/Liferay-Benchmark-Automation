@@ -251,7 +251,10 @@
 	</target>
 
 	<target name="test-wiki" depends="update-wiki-properties">
-		<copy file="${benchmark.dir}/properties/benchmark-ext-wiki.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
+		<load-benchmark-properties
+			environment="${environment.name}"
+			script.name="wiki"
+		/>
 
 		<copy file="propertiesFiles/portal-ext-wiki.properties" tofile="${benchmark.dir}/portal/presets/common/webapps/ROOT/WEB-INF/classes/portal-ext.properties" overwrite="true"/>
 
