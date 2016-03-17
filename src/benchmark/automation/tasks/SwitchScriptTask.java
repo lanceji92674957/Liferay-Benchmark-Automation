@@ -40,7 +40,7 @@ public class SwitchScriptTask extends Task {
 		}
     }
 
-	public void appendScript(
+	private void appendScript(
 			Map<String, Settings> scriptMap, Path filePath, String script)
 		throws IOException {
 
@@ -80,7 +80,7 @@ public class SwitchScriptTask extends Task {
 			filePath, sbBytes, StandardOpenOption.APPEND);
 	}
 
-	public Map<String, Settings> initMap() throws IOException {
+	private Map<String, Settings> initMap() throws IOException {
 		Map<String, Settings> scriptMap = new HashMap<>();
 
 		Properties scriptProperties = PropertiesUtil.loadProperties(
@@ -130,7 +130,7 @@ public class SwitchScriptTask extends Task {
 		return scriptMap;
 	}
 
-	public void replaceEnv(String env, Path filePath) throws IOException {
+	private void replaceEnv(String env, Path filePath) throws IOException {
 		String content = new String(Files.readAllBytes(filePath));
 
 		content = StringUtil.replace(content, "qa1", _environment);
@@ -151,7 +151,7 @@ public class SwitchScriptTask extends Task {
         _script = script;
     }
 
-	public void verifyInputs(Map<String, Settings> scriptMap) throws IOException {
+	private void verifyInputs(Map<String, Settings> scriptMap) throws IOException {
 		if (!scriptMap.containsKey(_script)) {
 			throw new IOException(_script + " is not a valid script!");
 		}
