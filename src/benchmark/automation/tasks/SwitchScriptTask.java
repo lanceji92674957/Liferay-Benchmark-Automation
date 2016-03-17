@@ -18,13 +18,16 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
 /**
  * @author tom
  */
 public class SwitchScriptTask extends Task {
-    public void execute() {
+
+	@Override
+    public void execute() throws BuildException {
 		try {
 			Map<String, Settings> scriptMap = initMap();
 
@@ -35,8 +38,7 @@ public class SwitchScriptTask extends Task {
 			appendScript(scriptMap, _filePath, _script);
 		}
 		catch (IOException ex) {
-			System.out.println("*****Script switch failed******* ");
-			System.out.println(ex.getMessage());
+			throw new BuildException(ex.getMessage());
 		}
     }
 
