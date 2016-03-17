@@ -1,4 +1,7 @@
 build-ext.properties
-
-benchmark-automation/build/*
-benchmark-automation/dist/*
+script-ext.properties
+build/*
+classes/*
+dist/*
+manifest.mf
+/nbproject/private/
