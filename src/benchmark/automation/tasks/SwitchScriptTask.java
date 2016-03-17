@@ -188,8 +188,8 @@ public class SwitchScriptTask extends Task {
 			return _sampleHeap;
 		}
 
-		private String _fullName;
-		private String _initPermits;
-		private String _sampleHeap;
+		private final String _fullName;
+		private final String _initPermits;
+		private final String _sampleHeap;
 	}
 }
