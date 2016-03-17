@@ -4,7 +4,6 @@
 	<property file="build.properties" />
 
 	<taskdef classpath="lib/ant-contrib.jar" resource="net/sf/antcontrib/antlib.xml" />
-	<taskdef name="switchscript" classname="benchmark.automation.tasks.SwitchScriptTask" classpath="benchmark-automation/dist/benchmark-automation.jar" />
 
 	<target name="build">
 	</target>
@@ -33,6 +32,19 @@
 		<attribute name="script.name" default="login" />
 		<sequential>
 			<copy file="propertiesFiles/benchmark-ext.properties" tofile="${benchmark.dir}/benchmark-ext.properties" overwrite="true"/>
+
+			<if>
+				<not>
+					<available file="classes" type="dir"/>
+				</not>
+				<then>
+					<mkdir dir="classes"/>
+
+					<javac srcdir="src" destdir="classes" classpath="lib" debug="on" />
+				</then>
+			</if>
+
+			<taskdef name="switchscript" classname="benchmark.automation.tasks.SwitchScriptTask" classpath="classes" />
 
 			<switchscript env="@{environment}" filePath="${benchmark.dir}/benchmark-ext.properties" script="@{script.name}" />
 		</sequential>
