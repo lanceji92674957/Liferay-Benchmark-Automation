@@ -153,7 +153,9 @@ public class SwitchScriptTask extends Task {
         _script = script;
     }
 
-	private void verifyInputs(Map<String, Settings> scriptMap) throws IOException {
+	private void verifyInputs(Map<String, Settings> scriptMap)
+		throws IOException {
+
 		if (!scriptMap.containsKey(_script)) {
 			throw new IOException(_script + " is not a valid script!");
 		}
