@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Liferay-Source-Netbeans-Project" default="build" basedir="." >
+<project name="Liferay-Source-Netbeans-Project" default="build" basedir="." xmlns:if="ant:if" xmlns:unless="ant:unless">
 	<property file="build-ext.properties" />
 	<property file="build.properties" />
 
@@ -221,7 +221,7 @@
 	</target>
 
 	<target name="switch-to-script">
-		<input message="test case: " addproperty="test-case" />
+		<input unless:set="test-case" message="test case: " addproperty="test-case" />
 
 		<load-benchmark-properties
 			environment="${environment.name}"
