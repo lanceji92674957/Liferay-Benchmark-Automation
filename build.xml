@@ -53,6 +53,11 @@
 	<macrodef name="pull-latest-upstream-master">
 		<sequential>
 			<exec executable="git" dir="${portal.dir}">
+				<arg value="reset" />
+				<arg value="--hard" />
+			</exec>
+
+			<exec executable="git" dir="${portal.dir}">
 				<arg value="clean" />
 				<arg value="-df" />
 			</exec>
