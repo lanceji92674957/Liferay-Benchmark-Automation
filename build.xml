@@ -307,12 +307,18 @@
 		<warmup-database />
 
 		<test-without-build-portal />
+
+		<load-benchmark-properties
+			environment="${environment.name}" />
 	</target>
 
 	<target name="test-with-warmup-prebuilt-portal" depends="switch-to-script">
 		<warmup-without-build />
 
 		<test-without-build-portal />
+
+		<load-benchmark-properties
+			environment="${environment.name}" />
 	</target>
 
 	<target name="update-wiki-properties">
