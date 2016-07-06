@@ -91,48 +91,55 @@ public class SwitchScriptTask extends Task {
 		Settings assetSettings =
 			new Settings(
 				"assetpublisher", scriptProperties.getProperty("asset"),
-				"false");
+				scriptProperties.getProperty("sample.heap"));
 
 		scriptMap.put("asset", assetSettings);
 
 		Settings blogSettings =
-			new Settings("blog", scriptProperties.getProperty("blog"), "false");
+			new Settings(
+				"blog", scriptProperties.getProperty("blog"),
+				scriptProperties.getProperty("sample.heap"));
 
 		scriptMap.put("blog", blogSettings);
 
 		Settings contentSettings =
 			new Settings(
-				"content", scriptProperties.getProperty("content"), "false");
+				"content", scriptProperties.getProperty("content"),
+				scriptProperties.getProperty("sample.heap"));
 
 		scriptMap.put("content", contentSettings);
 
 		Settings loginSettings =
 			new Settings(
-				"login", scriptProperties.getProperty("login"), "true");
+				"login", scriptProperties.getProperty("login"),
+				scriptProperties.getProperty("sample.heap"));
 
 		scriptMap.put("login", loginSettings);
 
 		Settings mbSettings =
 			new Settings(
-				"messageboard", scriptProperties.getProperty("mb"), "false");
+				"messageboard", scriptProperties.getProperty("mb"),
+				scriptProperties.getProperty("sample.heap"));
 
 		scriptMap.put("mb", mbSettings);
 
 		Settings wikiSettings =
-			new Settings("wiki", scriptProperties.getProperty("wiki"), "false");
+			new Settings("wiki", scriptProperties.getProperty("wiki"),
+				scriptProperties.getProperty("sample.heap"));
 
 		scriptMap.put("wiki", wikiSettings);
 
 		Settings dlSettings =
 			new Settings(
-				"documentlibrary", scriptProperties.getProperty("dl"), "false");
+				"documentlibrary", scriptProperties.getProperty("dl"),
+				scriptProperties.getProperty("sample.heap"));
 
 		scriptMap.put("dl", dlSettings);
 
 		return scriptMap;
 	}
 
-	private void replaceEnv(String env, Path filePath) throws IOException {
+	private void replaceEnv(Path filePath) throws IOException {
 		String content = new String(Files.readAllBytes(filePath));
 
 		content = StringUtil.replace(content, "qa1", _environment);
