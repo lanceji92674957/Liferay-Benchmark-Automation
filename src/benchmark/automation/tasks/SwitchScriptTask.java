@@ -33,7 +33,7 @@ public class SwitchScriptTask extends Task {
 
 			verifyInputs(scriptMap);
 
-			replaceEnv(_environment, _filePath);
+			replaceEnv(_filePath);
 
 			appendScript(scriptMap, _filePath, _script);
 		}
