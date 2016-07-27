@@ -8,6 +8,7 @@ package benchmark.automation.tasks;
 
 import benchmark.automation.util.PropertiesUtil;
 import benchmark.automation.util.StringUtil;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
@@ -75,7 +76,7 @@ public class SwitchScriptTask extends Task {
 		sb.append("sample.heap.liveonly=");
 		sb.append(scriptSettings.getSampleHeap());
 
-		try (Writer writer = Files.newBufferedWriter(filePath)) {
+		try (Writer writer = new FileWriter(filePath.toFile(), true)) {
 			writer.append(sb);
 		}
 	}
