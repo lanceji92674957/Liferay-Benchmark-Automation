@@ -9,11 +9,11 @@ package benchmark.automation.tasks;
 import benchmark.automation.util.PropertiesUtil;
 import benchmark.automation.util.StringUtil;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -75,14 +75,12 @@ public class SwitchScriptTask extends Task {
 		sb.append("sample.heap.liveonly=");
 		sb.append(scriptSettings.getSampleHeap());
 
-		String sbString = sb.toString();
-		byte[] sbBytes = sbString.getBytes();
-
-		Files.write(
-			filePath, sbBytes, StandardOpenOption.APPEND);
+		try (Writer writer = Files.newBufferedWriter(filePath)) {
+			writer.append(sb);
+		}
 	}
 
-	private Map<String, Settings> initMap() throws IOException {
+	 private Map<String, Settings> initMap() throws IOException {
 		Map<String, Settings> scriptMap = new HashMap<>();
 
 		Properties scriptProperties = PropertiesUtil.loadProperties(
@@ -145,7 +143,7 @@ public class SwitchScriptTask extends Task {
 		content = StringUtil.replace(content, "qa1", _environment);
 
 		Files.write(
-			filePath, Arrays.asList(content), Charset.defaultCharset());
+			filePath, Arrays.asList(content), StandardCharsets.UTF_8);
 	}
 
     public void setEnv(String env) {
