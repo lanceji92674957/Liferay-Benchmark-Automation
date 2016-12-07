@@ -8,6 +8,15 @@
 	<target name="build">
 	</target>
 
+	<macrodef name="all-sql-log">
+		<sequential>
+			<exec executable="ant" dir="${benchmark.dir}">
+				<arg value="all-sql-log" />
+				<arg value="-Dskip.build.portal=true" />
+			</exec>
+		</sequential>
+	</macrodef>
+
 	<macrodef name="checkout-master">
 		<sequential>
 			<echo message="Checkout master" />
@@ -47,6 +56,22 @@
 			<taskdef name="switchscript" classname="benchmark.automation.tasks.SwitchScriptTask" classpath="classes" />
 
 			<switchscript env="@{environment}" filePath="${benchmark.dir}/benchmark-ext.properties" script="@{script.name}" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="profile-cpu-tracing">
+		<sequential>
+			<exec executable="ant" dir="${benchmark.dir}">
+				<arg value="profile-cpu-tracing" />
+			</exec>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="profile-memory-profile">
+		<sequential>
+			<exec executable="ant" dir="${benchmark.dir}">
+				<arg value="profile-memory-profile" />
+			</exec>
 		</sequential>
 	</macrodef>
 
@@ -301,6 +326,26 @@
 		<copy file="propertiesFiles/web-default.xml" tofile="${benchmark.dir}/portal/presets/common/webapps/ROOT/WEB-INF/web.xml" overwrite="true"/>
 
 		<test-without-build-portal />
+	</target>
+
+	<target name="test-baseline">
+		<input message="Delay hours: " addproperty="delayhour" />
+
+		<input message="Delay seconds: " addproperty="delaysecond" />
+
+		<sleep hours="${delayhour}" minutes="0" seconds="${delaysecond}"/>
+
+		<antcall target="checkout-latest-master" />
+
+		<warmup-database />
+
+		<test-without-build-portal />
+
+		<profile-cpu-tracing />
+
+		<profile-memory-profile />
+
+		<all-sql-log />
 	</target>
 
 	<target name="test-with-warmup" depends="switch-to-script">
