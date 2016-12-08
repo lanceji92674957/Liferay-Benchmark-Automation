@@ -348,6 +348,18 @@
 		<all-sql-log />
 	</target>
 
+	<target name="test-baseline-script">
+		<input message="Delay hours: " addproperty="delayhour" />
+
+		<input message="Delay seconds: " addproperty="delaysecond" />
+
+		<sleep hours="${delayhour}" minutes="0" seconds="${delaysecond}"/>
+
+		<exec executable="/bin/bash">
+			<arg value="baseline.sh"/>
+		</exec>
+	</target>
+
 	<target name="test-with-warmup" depends="switch-to-script">
 		<warmup-database />
 
