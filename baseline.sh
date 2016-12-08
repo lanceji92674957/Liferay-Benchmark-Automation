@@ -9,6 +9,8 @@ export JAVA_HOME ANT_HOME MAVEN_HOME ANT_OPTS PATH
 cd /home/trunks/git/liferay-portal
 
 git checkout master
+git reset --hard
+git clean -df
 git pull --rebase upstream master
 
 cd /home/trunks/git/liferay-benchmark-ee
