@@ -21,3 +21,4 @@ ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample
 ant profile-cpu-tracing
 ant profile-memory-profile
 ant all-sql-log -Dskip.build.portal=true
+ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true
