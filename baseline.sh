@@ -12,6 +12,7 @@ git checkout master
 git reset --hard
 git clean -df
 git pull --rebase upstream master
+rm -rf `find . -name "node_modules" -type d`
 
 cd /home/trunks/git/liferay-benchmark-ee
 
