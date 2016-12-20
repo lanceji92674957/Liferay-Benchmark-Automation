@@ -27,4 +27,6 @@ cd /home/liferay/shares/benchmark/2016/DailyProfiles
 
 mkdir $(date '+%Y-%m-%d')
 
-ls -1 /home/trunks/git/liferay-benchmark-ee/archive/login | egrep '*$(date '+%Y-%m-%d')*' | xargs cp -t /home/liferay/shares/benchmark/2016/DailyProfiles/$(date '+%Y-%m-%d')
+cd /home/trunks/git/liferay-benchmark-ee/archive/login
+
+ls -1 . | egrep "*$(date '+%Y-%m-%d')*" | xargs cp -t /home/liferay/shares/benchmark/2016/DailyProfiles/$(date '+%Y-%m-%d')
