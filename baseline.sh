@@ -22,6 +22,7 @@ ant profile-cpu-tracing
 ant profile-memory-profile
 ant all-sql-log -Dskip.build.portal=true
 ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true
+ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true
 
 cd /home/liferay/shares/benchmark/2016/DailyProfiles
 
@@ -29,4 +30,4 @@ mkdir $(date '+%Y-%m-%d')
 
 cd /home/trunks/git/liferay-benchmark-ee/archive/login
 
-ls -1 . | egrep "*$(date '+%Y-%m-%d')*" | xargs cp -t /home/liferay/shares/benchmark/2016/DailyProfiles/$(date '+%Y-%m-%d')
+ls -1 . | egrep ".*$(date '+%Y-%m-%d').*" | xargs cp -t /home/liferay/shares/benchmark/2016/DailyProfiles/$(date '+%Y-%m-%d')
