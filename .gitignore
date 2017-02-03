@@ -5,3 +5,5 @@ classes/*
 dist/*
 manifest.mf
 /nbproject/private/
+benchmark-exts/*
+test.sh
