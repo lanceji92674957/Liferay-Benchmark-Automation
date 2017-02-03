@@ -6,27 +6,42 @@ MAVEN_HOME=/opt/maven
 PATH=$JAVA_HOME/bin:$ANT_HOME/bin:$MAVEN_HOME/bin:/home/zsyxc/localwork/bin:$GIT_CORE:$ASPECTJ_HOME/bin:$PATH
 export JAVA_HOME ANT_HOME MAVEN_HOME ANT_OPTS PATH
 
+cd /home/trunks/git/Liferay-Benchmark-Automation
+
+ant switch-to-default-script
+
 cd /home/trunks/git/liferay-portal
 
-git checkout master
 git reset --hard
 git clean -df
+git checkout master
 git pull --rebase upstream master
 rm -rf `find . -name "node_modules" -type d`
 
 cd /home/trunks/git/liferay-benchmark-ee
 
+git pull --rebase upstream master
+
+ant stop
 ant all-database
-ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true
+ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true -Dsample.heap.enabled=true
 ant profile-cpu-tracing
 ant profile-memory-profile
 ant all-sql-log -Dskip.build.portal=true
-ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true
-ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true
 
 cd /home/liferay/shares/benchmark/2016/DailyProfiles
 
 mkdir $(date '+%Y-%m-%d')
+
+cd /home/trunks/git/liferay-benchmark-ee/archive/login
+
+ls -1 . | egrep ".*$(date '+%Y-%m-%d').*" | xargs cp -t /home/liferay/shares/benchmark/2016/DailyProfiles/$(date '+%Y-%m-%d')
+
+cd /home/trunks/git/liferay-benchmark-ee
+
+ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true -Dsample.heap.enabled=true -Dsample.heap.liveonly=true
+ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true
+ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true -Dwith.cpu.sampling=true
 
 cd /home/trunks/git/liferay-benchmark-ee/archive/login
 
