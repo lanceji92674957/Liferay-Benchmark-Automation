@@ -5,21 +5,23 @@ import subprocess
 import time
 
 def runBashCommand(bashCommand):
-	process = subprocess.Popen(bashCommand.split())
-	time.sleep(5)
+	process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE, 
+                       shell=True, preexec_fn=os.setsid)
+	process.communicate()
 
 def copyProperties(filePath):
 	shutil.copyfile(filePath, benchmarkDir + "/benchmark-ext.properties")
 
-def runTest(testCase):
-	print "starting: " + testCase
-	copyProperties("benchmark-exts/" + testCase + "/benchmark-ext.properties")
-	os.chdir(benchmarkDir)
-	runBashCommand("ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true")
-	os.chdir(currentDir)
-
 currentDir = os.getcwd()
-benchmarkDir = "/liferaysc/liferay-benchmark-ee"
+benchmarkDir = "/home/trunks/git/liferay-benchmark-ee"
 
 for arg in sys.argv[1:]:
-	runTest(arg)
+	print "starting: " + arg
+	copyProperties("benchmark-exts/" + arg + "/benchmark-ext.properties")
+	os.chdir(benchmarkDir)
+#	runBashCommand("ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true")
+	runBashCommand("ant stop")
+	print "run finished"
+	os.chdir(currentDir)
+
+os.killpg(os.getpgid(process.pid), signal.SIGTERM)
