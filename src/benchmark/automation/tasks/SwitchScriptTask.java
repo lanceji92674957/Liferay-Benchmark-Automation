@@ -57,7 +57,7 @@ public class SwitchScriptTask extends Task {
 		sb.append("database.name=lportal_");
 		sb.append(script);
 		sb.append('\n');
-		sb.append("grinder.script=script/");
+		sb.append("grinder.script=script/netty/");
 
 		Settings scriptSettings = scriptMap.get(script);
 
