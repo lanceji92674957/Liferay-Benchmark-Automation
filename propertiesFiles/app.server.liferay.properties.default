@@ -1,0 +1,2 @@
+app.server.parent.dir=/opt/liferay-portal-trunk
+app.server.tomcat.dir=${app.server.parent.dir}/tomcat
