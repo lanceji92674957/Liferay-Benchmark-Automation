@@ -1,5 +1,5 @@
 #!/bin/sh
-ANT_OPTS="-server -Xverify:none -XX:NewSize=128m -XX:MaxNewSize=256m -Xms1024m -Xmx1536m -XX:+UseParallelOldGC -XX:SurvivorRatio=65536 -XX:TargetSurvivorRatio=0 -XX:MaxTenuringThreshold=0 -XX:+DisableExplicitGC -Xss2m -XX:PermSize=100m -XX:MaxPermSize=256m"
+ANT_OPTS="-server -Xverify:none -XX:NewSize=128m -XX:MaxNewSize=256m -Xms1024m -Xmx3g -XX:+UseParallelOldGC -XX:SurvivorRatio=65536 -XX:TargetSurvivorRatio=0 -XX:MaxTenuringThreshold=0 -XX:+DisableExplicitGC -Xss2m -XX:PermSize=100m -XX:MaxPermSize=256m"
 JAVA_HOME=/opt/jvms/default_jdk
 ANT_HOME=/opt/ant
 MAVEN_HOME=/opt/maven
@@ -10,21 +10,19 @@ cd /home/trunks/git/Liferay-Benchmark-Automation
 
 ant switch-to-default-script
 
-cd /home/trunks/git/liferay-portal
-
-git reset --hard
-git clean -df
-git checkout master
-git pull --rebase upstream master
-rm -rf `find . -name "node_modules" -type d`
+./pull-upstream.sh
 
 cd /home/trunks/git/liferay-benchmark-ee
 
-git pull --rebase upstream master
-
 ant stop
 ant all-database
+
+echo ***********Finish all database****************
+
 ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true -Dsample.heap.enabled=true
+
+echo ****************Finish first run*************************8
+
 ant profile-cpu-tracing
 ant profile-memory-profile
 ant all-sql-log -Dskip.build.portal=true
@@ -32,6 +30,7 @@ ant all-sql-log -Dskip.build.portal=true
 cd /home/liferay/shares/benchmark/2016/DailyProfiles
 
 mkdir $(date '+%Y-%m-%d')
+mkdir $(date '+%Y-%m-%d')/content
 
 cd /home/trunks/git/liferay-benchmark-ee/archive/login
 
@@ -40,9 +39,13 @@ ls -1 . | egrep ".*$(date '+%Y-%m-%d').*" | xargs cp -t /home/liferay/shares/ben
 cd /home/trunks/git/liferay-benchmark-ee
 
 ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true -Dsample.heap.enabled=true -Dsample.heap.liveonly=true
-ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true
+#ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true
 ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true -Dwith.cpu.sampling=true
 
 cd /home/trunks/git/liferay-benchmark-ee/archive/login
 
 ls -1 . | egrep ".*$(date '+%Y-%m-%d').*" | xargs cp -t /home/liferay/shares/benchmark/2016/DailyProfiles/$(date '+%Y-%m-%d')
+
+cd /home/trunks/git/Liferay-Benchmark-Automation
+
+./content.sh
