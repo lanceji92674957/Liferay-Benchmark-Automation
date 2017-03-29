@@ -255,21 +255,13 @@
 	</target>
 
 	<target name="switch-to-default-script">
-		<copy file="propertiesFiles/app.server.liferay.properties.default" tofile="${portal.dir}/app.server.liferay.properties" overwrite="true" />
-
-		<load-benchmark-properties
-			environment="${environment.name}" />
+		<copy file="/home/trunks/git/benchmark-ext-login.properties" tofile="/home/trunks/git/liferay-benchmark-ee/benchmark-ext.properties" overwrite="true" />
 	</target>
 
 	<target name="switch-to-script">
 		<input unless:set="test-case" message="test case: " addproperty="test-case" />
 
-		<copy file="propertiesFiles/app.server.liferay.properties.others" tofile="${portal.dir}/app.server.liferay.properties" overwrite="true" />
-
-		<load-benchmark-properties
-			environment="${environment.name}"
-			script.name="${test-case}"
-		/>
+		<copy file="/home/trunks/git/benchmark-ext-${test-case}.properties" tofile="/home/trunks/git/liferay-benchmark-ee/benchmark-ext.properties" overwrite="true" />
 	</target>
 
 	<target name="test-current-branch">
