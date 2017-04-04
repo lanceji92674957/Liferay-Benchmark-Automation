@@ -15,13 +15,16 @@ ant switch-to-default-script
 cd /home/trunks/git/liferay-benchmark-ee
 
 ant stop
-ant all-database
+
+set -e
+
+ant all-database -Dclean.node.modules=true
 
 echo ***********Finish all database****************
 
 ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true -Dsample.heap.enabled=true
 
-echo ****************Finish first run*************************8
+echo ****************Finish first run*************************
 
 ant profile-cpu-tracing
 ant profile-memory-profile
@@ -46,6 +49,12 @@ cd /home/trunks/git/liferay-benchmark-ee/archive/login
 
 ls -1 . | egrep ".*$(date '+%Y-%m-%d').*" | xargs cp -t /home/liferay/shares/benchmark/2016/DailyProfiles/$(date '+%Y-%m-%d')
 
-cd /home/trunks/git/Liferay-Benchmark-Automation
+#cd /home/trunks/git/Liferay-Benchmark-Automation
 
-./content.sh
+#echo ************Start content*******************
+#./content.sh
+#echo **************Finished content****************
+
+#echo ************Start Asset****************
+#./asset.sh
+#echo ************Finished asset*****************

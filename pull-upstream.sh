@@ -24,6 +24,7 @@ cd modules/apps/web-experience/journal
 echo *************Pulling journal upstream**************
 
 git reset --hard
+git clean -df
 git pull upstream master
 
 cd /home/trunks/git/liferay-benchmark-ee
