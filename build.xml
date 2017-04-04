@@ -2,6 +2,7 @@
 <project name="Liferay-Source-Netbeans-Project" default="build" basedir="." xmlns:if="ant:if" xmlns:unless="ant:unless">
 	<property file="build-ext.properties" />
 	<property file="build.properties" />
+	<property file="${benchmark.dir}/benchmark-ext.properties" />
 
 	<taskdef classpath="lib/ant-contrib.jar" resource="net/sf/antcontrib/antlib.xml" />
 
@@ -165,6 +166,14 @@
 			<arg value="cherry-pick" />
 			<arg value="${git-id-start}^..${git-id-end}" />
 		</exec>
+	</target>
+
+	<target name="reboot-agents">
+		<for list="${agent.ips}" param="agent">
+			<sequential>
+				<sshexec host="@{agent}" username="${agent.username}" password="${agent.password}" trust="true" usepty="true" command="echo '${agent.password}' | sudo -S shutdown -r 0" />
+			</sequential>
+		</for>
 	</target>
 
 	<target name="run-nightly" depends="checkout-latest-master">
