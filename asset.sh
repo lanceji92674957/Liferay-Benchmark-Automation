@@ -8,7 +8,7 @@ export JAVA_HOME ANT_HOME MAVEN_HOME ANT_OPTS PATH
 
 cd /home/trunks/git/liferay-benchmark-ee
 
-cp -R /home/trunks/git/benchmark-ext-content.properties ./benchmark-ext.properties
+cp -R /home/trunks/git/benchmark-ext-asset.properties ./benchmark-ext.properties
 
 ant all-database -Dskip.build.portal=true
 ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true -Dsample.heap.enabled=true
@@ -22,9 +22,9 @@ cd /home/liferay/shares/benchmark/2016/DailyProfiles
 
 mkdir $(date '+%Y-%m-%d')/content
 
-cd /home/trunks/git/liferay-benchmark-ee/archive/content
+cd /home/trunks/git/liferay-benchmark-ee/archive/asset
 
-ls -1 . | egrep ".*$(date '+%Y-%m-%d').*" | xargs cp -t /home/liferay/shares/benchmark/2016/DailyProfiles/$(date '+%Y-%m-%d')/content
+ls -1 . | egrep ".*$(date '+%Y-%m-%d').*" | xargs cp -t /home/liferay/shares/benchmark/2016/DailyProfiles/$(date '+%Y-%m-%d')/asset
 
 cd /home/trunks/git/liferay-benchmark-ee
 
@@ -32,6 +32,6 @@ ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample
 #ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true
 ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true -Dwith.cpu.sampling=true
 
-cd /home/trunks/git/liferay-benchmark-ee/archive/content
+cd /home/trunks/git/liferay-benchmark-ee/archive/asset
 
-ls -1 . | egrep ".*$(date '+%Y-%m-%d').*" | xargs cp -t /home/liferay/shares/benchmark/2016/DailyProfiles/$(date '+%Y-%m-%d')/content
+ls -1 . | egrep ".*$(date '+%Y-%m-%d').*" | xargs cp -t /home/liferay/shares/benchmark/2016/DailyProfiles/$(date '+%Y-%m-%d')/asset
