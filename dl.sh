@@ -9,7 +9,7 @@ export JAVA_HOME ANT_HOME MAVEN_HOME ANT_OPTS PATH
 
 cd /home/trunks/git/liferay-benchmark-ee
 
-cp -R /home/trunks/git/benchmark-ext-content.properties ./benchmark-ext.properties
+cp -R /home/trunks/git/benchmark-ext-dl.properties ./benchmark-ext.properties
 
 ant all-database -Dskip.build.portal=true
 ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true

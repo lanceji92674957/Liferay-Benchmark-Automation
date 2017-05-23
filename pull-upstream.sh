@@ -17,15 +17,15 @@ git pull --rebase upstream master
 
 rm -rf `find . -name "node_modules" -type d`
 
-echo ***************cd to journal directory****************
+#echo ***************cd to journal directory****************
 
-cd modules/apps/web-experience/journal
+#cd modules/apps/web-experience/journal
 
-echo *************Pulling journal upstream**************
+#echo *************Pulling journal upstream**************
 
-git reset --hard
-git clean -df
-git pull upstream master
+#git reset --hard
+#git clean -df
+#git pull upstream master
 
 cd /home/trunks/git/liferay-benchmark-ee
 

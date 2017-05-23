@@ -11,27 +11,6 @@ cd /home/trunks/git/liferay-benchmark-ee
 cp -R /home/trunks/git/benchmark-ext-asset.properties ./benchmark-ext.properties
 
 ant all-database -Dskip.build.portal=true
-ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true -Dsample.heap.enabled=true
+ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true
 
-ant profile-cpu-tracing
-ant profile-memory-profile
 
-ant all-sql-log -Dskip.build.portal=true
-
-cd /home/liferay/shares/benchmark/2016/DailyProfiles
-
-mkdir $(date '+%Y-%m-%d')/content
-
-cd /home/trunks/git/liferay-benchmark-ee/archive/asset
-
-ls -1 . | egrep ".*$(date '+%Y-%m-%d').*" | xargs cp -t /home/liferay/shares/benchmark/2016/DailyProfiles/$(date '+%Y-%m-%d')/asset
-
-cd /home/trunks/git/liferay-benchmark-ee
-
-ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true -Dsample.heap.enabled=true -Dsample.heap.liveonly=true
-#ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true
-ant stop reload-warmup-database all-portal start-visualvm all-grinder all-sample stop -Dskip.build.portal=true -Dwith.cpu.sampling=true
-
-cd /home/trunks/git/liferay-benchmark-ee/archive/asset
-
-ls -1 . | egrep ".*$(date '+%Y-%m-%d').*" | xargs cp -t /home/liferay/shares/benchmark/2016/DailyProfiles/$(date '+%Y-%m-%d')/asset
